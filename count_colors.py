@@ -19,7 +19,7 @@ print('Loaded image of size %s.' % str(im.size))
 color_frequency = {}
 # Classify colors.
 for pixel in pixels:
-  pixel_string = str(pixel[:3])
+  pixel_string = pixel[:3]
   if color_frequency.has_key(pixel_string):
     color_frequency[pixel_string] += 1
   else:
@@ -31,3 +31,18 @@ pp.pprint(color_frequency)
 # Sanity check.
 print('Total colors: %d.' % len(color_frequency))
 print('[Sanity] Total tiles: %d.' % sum(color_frequency.values()))
+items = color_frequency.items()
+items = sorted(items, key=lambda item: item[1])
+
+# Create a new image that is a stacked bar chart of just the colors.
+width = len(items)
+height = max(color_frequency.values())
+im2 = Image.new('RGB', (width, height), 'white')
+
+pixels = im2.load()
+for i in range(im2.size[0]):
+  for j in range(im2.size[1]):
+    if (j < items[i][1]):
+      pixels[i, j] = items[i][0]
+
+im2.show()
