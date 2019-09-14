@@ -26,13 +26,14 @@ for pixel in pixels:
     color_frequency[pixel_string] = 1
 
 pp = pprint.PrettyPrinter(indent=2)
-pp.pprint(color_frequency)
 
 # Sanity check.
 print('Total colors: %d.' % len(color_frequency))
 print('[Sanity] Total tiles: %d.' % sum(color_frequency.values()))
 items = color_frequency.items()
 items = sorted(items, key=lambda item: item[1])
+
+pp.pprint(items)
 
 # Create a new image that is a stacked bar chart of just the colors.
 width = len(items)
